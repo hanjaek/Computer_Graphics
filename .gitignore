@@ -2,3 +2,6 @@
 *.exe
 *.out
 *.o
+
+# make 파일 무시
+Makefile
