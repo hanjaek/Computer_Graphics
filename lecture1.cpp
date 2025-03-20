@@ -10,6 +10,7 @@ void RenderScene(void){
     glClear(GL_COLOR_BUFFER_BIT);
 
     // 버퍼 교체 (화면 갱신)
+    // glFlush(); -- 이거를 glutSwapBuffers()를 써야함
     glutSwapBuffers(); 
 }
 
@@ -25,6 +26,7 @@ int main(int argc, char** argv){
     glutInit(&argc, argv);
 
     // 더블버퍼와 RGB체계 사용
+    // 싱글은 안됨. 환경에따라 설정
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); 
     
     // width, height 픽셀
