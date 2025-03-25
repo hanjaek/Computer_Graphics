@@ -10,14 +10,16 @@ void RenderScene(void){
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    glViewport(0, 0, 640, 480);
+    glViewport(0, 0, 500, 500);
 
     // 클리핑 느낌으로 생각하면 됨
-    glOrtho(-320, 320, -240, 240, 1, -1);
+    glOrtho(0, 500, 0, 500, 1, -1);
 
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1.0f, 0.0f, 0.0f);
-    glRectf(0, 240, 320, 0);
+
+    // x1(좌측하단), y1(좌측상단), x2(우측상단) ,y2(우측하단)
+    glRectf(250, 375, 375, 250);
     glutSwapBuffers(); 
 }
 
@@ -29,9 +31,9 @@ void SetupRC(void){
 int main(int argc, char** argv){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-    glutInitWindowSize(640, 480);
+    glutInitWindowSize(500, 500);
     glutInitWindowPosition(400, 400);
-    glutCreateWindow("lecture2");
+    glutCreateWindow("lecture2_4");
 
     SetupRC();
     glutDisplayFunc(RenderScene);
