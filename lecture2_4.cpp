@@ -19,6 +19,7 @@ void RenderScene(void){
     glColor3f(1.0f, 0.0f, 0.0f);
 
     // x1(좌측하단), y1(좌측상단), x2(우측상단) ,y2(우측하단)
+    // (x1,y1) = 좌측상단 좌표 / (x2,y2) = 우측하단좌표
     glRectf(250, 375, 375, 250);
     glutSwapBuffers(); 
 }
