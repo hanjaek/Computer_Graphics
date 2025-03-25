@@ -11,7 +11,7 @@ void RenderScene(void){
     glLoadIdentity();
 
     glViewport(0, 0, 640, 480);
-    glOrtho(0, 640, 0, 480, 1, -1);
+    glOrtho(-320, 320, -240, 240, 1, -1);
 
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1.0f, 0.0f, 0.0f);
