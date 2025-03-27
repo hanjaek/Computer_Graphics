@@ -24,8 +24,11 @@ void ChangeSize(GLsizei w, GLsizei h){
     cout << "ChangeSize" << endl;
 
     GLint wSize = 100;
-    GLfloat aspectRatio = h/w;
+    GLint baseSize = 500*500/4;
+    GLfloat aspectRatio = (float)w*h/baseSize;
 
+    cout << "aspectRatio: "<< aspectRatio << endl; 
+    cout << "1/aspectRatio: " << 1/aspectRatio <<endl;
     // 창 없어지는 거 방지
     if (h==0){
         h = 1;
@@ -39,20 +42,8 @@ void ChangeSize(GLsizei w, GLsizei h){
 
     
     // ****************** Ortho 작성해보기 ***********************
-    if(aspectRatio > 1){
-        glOrtho(-w, w, -h*aspectRatio, h*aspectRatio, 1, -1);
-    }
-    else{
-        glOrtho(-w*aspectRatio, w*aspectRatio, -h/4, h/4, 1, -1);
-    }
-
-    /*
-    if (h > w){
-    }
-    else{
-        glOrtho(-w/4, w/4, -h/4, h/4, 1, -1);
-    }
-    */
+    
+    glOrtho(-w/aspectRatio, w/aspectRatio, -h/aspectRatio, h/aspectRatio, 1, -1);
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
