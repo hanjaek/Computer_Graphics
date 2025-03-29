@@ -23,12 +23,14 @@ void ChangeSize(GLsizei w, GLsizei h){
     cout << "--> " << "w= " << w << " " << " h= "<< h << endl;
     cout << "ChangeSize" << endl;
 
-    GLint wSize = 100;
-    GLint baseSize = 500*500/4;
+    GLint wSize = 500;
+    GLint hSize = 500;
+    GLint baseSize = wSize * hSize / 4;
     GLfloat aspectRatio = (float)w*h/baseSize;
 
-    cout << "aspectRatio: "<< aspectRatio << endl; 
-    cout << "1/aspectRatio: " << 1/aspectRatio <<endl;
+    // cout << "aspectRatio: "<< aspectRatio << endl; 
+    // cout << "1/aspectRatio: " << 1/aspectRatio <<endl;
+
     // 창 없어지는 거 방지
     if (h==0){
         h = 1;
