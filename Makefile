@@ -5,8 +5,8 @@ TARGET = lecture2_7
 
 all: $(TARGET)
 
-$(TARGET): lecture2_7.cpp
-	$(CC) lecture2_7.cpp -o $(TARGET) $(CFLAGS) $(LDFLAGS)
+$(TARGET): lecture02/lecture2_7.cpp
+	$(CC) lecture02/lecture2_7.cpp -o $(TARGET) $(CFLAGS) $(LDFLAGS)
 
 clean:
 	del $(TARGET).exe
