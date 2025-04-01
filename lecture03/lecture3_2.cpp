@@ -9,9 +9,14 @@ void RenderScene(void) {
     glColor3f(1.0f, 1.0f, 1.0f);
     
     glLoadIdentity();
+
+    float t = 0;
     glBegin(GL_POINTS);
-        glVertex3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(50.0f, 50.0f, 50.0f);
+        for(float i=0; i<=50; i+=2.5){
+            glVertex3f(0.0f + i, 0.0f + i, 0.0f + i);
+        }
+        // glVertex3f(0.0f, 0.0f, 0.0f);
+        // glVertex3f(50.0f, 50.0f, 50.0f);
     glEnd();
 
     glutSwapBuffers(); 

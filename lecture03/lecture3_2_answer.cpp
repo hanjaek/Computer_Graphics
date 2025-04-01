@@ -7,11 +7,16 @@ void RenderScene(void) {
 
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1.0f, 1.0f, 1.0f);
-    
+
     glLoadIdentity();
-    glBegin(GL_POINTS);
-        glVertex3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(50.0f, 50.0f, 50.0f);
+    glBegin(GL_POINTS); // 기본 모델로 점을 선택한다.
+    for (float i = 0.0f; i <= 1.0f; i += 0.05f) {
+        // float x = 50.0f * i;
+        // float y = 50.0f * i;
+        // float z = 50.0f * i;
+        // glVertex3f(x, y, z); // 점을 지정한다.
+        glVertex3f(50.0f*i, 50.0f*i, 50.0f*i);
+    }
     glEnd();
 
     glutSwapBuffers(); 
@@ -22,10 +27,10 @@ void SetupRC(void) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-void ChangeSize(GLsizei w, GLsizei h) {
 
+void ChangeSize(GLsizei w, GLsizei h) {
     GLint wSize = 100;
-    GLfloat aspectRatio; 
+    GLfloat aspectRatio;
 
     if (h == 0) h = 1;
 
@@ -36,10 +41,10 @@ void ChangeSize(GLsizei w, GLsizei h) {
 
     aspectRatio = (GLfloat)w / (GLfloat)h;
     if (w <= h) {
-        glOrtho( -wSize, wSize, -wSize / aspectRatio, wSize / aspectRatio, 100, -100);
+        glOrtho(-wSize, wSize, -wSize / aspectRatio, wSize / aspectRatio, -100, 100);
     }
     else {
-        glOrtho(-wSize * aspectRatio, wSize * aspectRatio, -wSize, wSize, 100, -100);
+        glOrtho(-wSize * aspectRatio, wSize * aspectRatio, -wSize, wSize, -100, 100);
     }
 
     glMatrixMode(GL_MODELVIEW);
@@ -51,7 +56,7 @@ int main(int argc, char** argv) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(500, 500);
     glutInitWindowPosition(400, 400);
-    glutCreateWindow("Draw vertex");
+    glutCreateWindow("Simple");
 
     glutDisplayFunc(RenderScene);
     glutReshapeFunc(ChangeSize);

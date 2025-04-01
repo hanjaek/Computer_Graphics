@@ -6,20 +6,14 @@ void RenderScene(void) {
     std::cout << "RenderScene" << std::endl;
 
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0f, 1.0f, 1.0f);
-    
-    glLoadIdentity();
-    glBegin(GL_POINTS);
-        glVertex3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(50.0f, 50.0f, 50.0f);
-    glEnd();
-
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glRectf(-25.0f, 25.0f, 25.0f, -25.0f);
     glutSwapBuffers(); 
 }
 
 void SetupRC(void) {
     std::cout << "SetupRC" << std::endl;
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 }
 
 void ChangeSize(GLsizei w, GLsizei h) {
@@ -36,10 +30,10 @@ void ChangeSize(GLsizei w, GLsizei h) {
 
     aspectRatio = (GLfloat)w / (GLfloat)h;
     if (w <= h) {
-        glOrtho( -wSize, wSize, -wSize / aspectRatio, wSize / aspectRatio, 100, -100);
+        glOrtho( -wSize, wSize, -wSize / aspectRatio, wSize / aspectRatio, 1, -1);
     }
     else {
-        glOrtho(-wSize * aspectRatio, wSize * aspectRatio, -wSize, wSize, 100, -100);
+        glOrtho(-wSize * aspectRatio, wSize * aspectRatio, -wSize, wSize, 1, -1);
     }
 
     glMatrixMode(GL_MODELVIEW);
@@ -51,7 +45,7 @@ int main(int argc, char** argv) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(500, 500);
     glutInitWindowPosition(400, 400);
-    glutCreateWindow("Draw vertex");
+    glutCreateWindow("Simple");
 
     glutDisplayFunc(RenderScene);
     glutReshapeFunc(ChangeSize);
