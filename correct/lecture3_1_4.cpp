@@ -3,6 +3,8 @@
 #include <iostream>
 #include <math.h>
 
+// 점의 크기가 점점 커지는 나선형 출력하기
+
 #define GL_PI 3.1415f
 //장면 렌더링
 void RenderScene(void)
@@ -11,23 +13,28 @@ void RenderScene(void)
 
    glClear(GL_COLOR_BUFFER_BIT);
    glColor3f(1.0f, 1.0f, 1.0f);
-   //glRectf(-25.0f, 25.0f, 25.0f, -25.0f);
+   // glRectf(-25.0f, 25.0f, 25.0f, -25.0f);
    glPushMatrix();
       glRotatef(45, 1.0f, 0.0f, 0.0f);
       glRotatef(45, 0.0f, 1.0f, 0.0f);
-   glPointSize(3);
-   GLfloat sizes[2];
-   GLfloat step;
-   glBegin(GL_POINTS);
+   
+   GLfloat sizes[2] = {1.0f, 20.0f}; // 지원되는 점 크기의 범위를 저장한다.
+   GLfloat step = 0.1f; // 지원되는 점 크기의 간격을 지정한다.
+   glGetFloatv(GL_POINT_SIZE_RANGE, sizes);
+   glGetFloatv(GL_POINT_SIZE_GRANULARITY, &step);
+
    float z = -50.0f;
    for (float angle = 0.0f; angle <= (6.0f * GL_PI); angle += 0.1f) {
+      glPointSize(sizes[0]+=step);
+      glBegin(GL_POINTS);
       float x = 50 * cos(angle);
       float y = 50 * sin(angle);
       //std :: cout << x <<','<< y<<',' << z;
+
       z += 0.5f;
       glVertex3f(x, y, z);
+      glEnd();
    }
-   glEnd();
    glPopMatrix();
    //glFlush();
    glutSwapBuffers();

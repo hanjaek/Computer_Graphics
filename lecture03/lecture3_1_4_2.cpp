@@ -3,31 +3,38 @@
 #include <iostream>
 #include <math.h>
 
-#define GL_PI 3.1415f
-//장면 렌더링
+using namespace std;
+
+// 점의 크기가 점점 커지는 나선형 출력하기 - z축으로 나열하기 
+// z축으로 나열
+
 void RenderScene(void)
 {
-   std::cout << "RenderScene" << std::endl;
+   cout << "RenderScene" << endl;
 
    glClear(GL_COLOR_BUFFER_BIT);
    glColor3f(1.0f, 1.0f, 1.0f);
-   //glRectf(-25.0f, 25.0f, 25.0f, -25.0f);
+   // glRectf(-25.0f, 25.0f, 25.0f, -25.0f);
    glPushMatrix();
       glRotatef(45, 1.0f, 0.0f, 0.0f);
       glRotatef(45, 0.0f, 1.0f, 0.0f);
-   glPointSize(3);
-   GLfloat sizes[2];
+   
+   GLfloat sizes[2]; 
    GLfloat step;
-   glBegin(GL_POINTS);
+   glGetFloatv(GL_POINT_SIZE_RANGE, sizes);
+   glGetFloatv(GL_POINT_SIZE_GRANULARITY, &step);
+
+   cout << sizes[0] << "-" << sizes[1] << "-" << step << "\n";
+   // min = 1, max = 20, step = 0.125
+
    float z = -50.0f;
-   for (float angle = 0.0f; angle <= (6.0f * GL_PI); angle += 0.1f) {
-      float x = 50 * cos(angle);
-      float y = 50 * sin(angle);
-      //std :: cout << x <<','<< y<<',' << z;
-      z += 0.5f;
-      glVertex3f(x, y, z);
+   for (float size = sizes[0]; size <= sizes[1]; size += step) {
+      glPointSize(sizes[0]+=step);
+      glBegin(GL_POINTS);
+      z += 1.0f;
+      glVertex3f(1, 1, z);
+      glEnd();
    }
-   glEnd();
    glPopMatrix();
    //glFlush();
    glutSwapBuffers();
