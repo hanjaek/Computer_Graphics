@@ -41,7 +41,7 @@ void RenderScene(void){
     glViewport(0, 0, 640, 480);
 
     // 왼쪽, 오른쪽, 아래, 위, near(+z), far (뒤에 두 값은 깊이) 
-    glOrtho(1, -1, 1, -1, 1, -1);
+    glOrtho(0, 640, 0, 480, 1, -1);
 
     glMatrixMode(GL_MODELVIEW);
 
