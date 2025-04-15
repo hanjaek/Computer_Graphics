@@ -18,14 +18,16 @@ void RenderScene(void)
       glRotatef(45, 1.0f, 0.0f, 0.0f);
       glRotatef(45, 0.0f, 1.0f, 0.0f);
    
-   GLfloat sizes[2] = {1.0f, 20.0f}; // 지원되는 점 크기의 범위를 저장한다.
-   GLfloat step = 0.1f; // 지원되는 점 크기의 간격을 지정한다.
+   GLfloat sizes[2];  // 지원되는 점 크기의 범위를 저장한다.
+   GLfloat step; // 지원되는 점 크기의 간격을 지정한다.
    glGetFloatv(GL_POINT_SIZE_RANGE, sizes);
    glGetFloatv(GL_POINT_SIZE_GRANULARITY, &step);
 
    float z = -50.0f;
+   GLfloat size = sizes[0];
    for (float angle = 0.0f; angle <= (6.0f * GL_PI); angle += 0.1f) {
-      glPointSize(sizes[0]+=step);
+      glPointSize(size);
+      size += step;
       glBegin(GL_POINTS);
       float x = 50 * cos(angle);
       float y = 50 * sin(angle);

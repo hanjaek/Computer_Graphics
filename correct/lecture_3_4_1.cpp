@@ -3,6 +3,8 @@
 #include <iostream>
 #include <math.h>
 
+using namespace std;
+
 #define GL_PI 3.1415f
 //장면 렌더링
 void RenderScene(void)
@@ -23,7 +25,8 @@ void RenderScene(void)
    GLfloat x = 50.0f;
    GLfloat y = 50.0f;
    GLfloat size = sizes[0];
-   // 0.0078125, 30.9922, step = 0.0078125
+   // cout << sizes[0] << " " << sizes[1] << " " << step << endl;
+   // 0.0078125, 2046.99, step = 0.0078125
 
    for(int i=0; i < 9; i++){
 
@@ -31,10 +34,14 @@ void RenderScene(void)
       size += step*300;
 
       glBegin(GL_LINES);
-      glVertex3f(x, 50.0f, 0);
-      glVertex3f(x, 450.0f, 0);
 
+      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
+      glVertex3f(x, 50.0f, 0);
+      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
+      glVertex3f(x, 450.0f, 0);
+      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
       glVertex3f(50.0f, y, 0);
+      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
       glVertex3f(450.0f, y, 0);
 
       x += space;

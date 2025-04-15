@@ -10,7 +10,8 @@ void RenderScene(void){
     glClear(GL_COLOR_BUFFER_BIT);
 
     // 드로잉 색상 지정
-    glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glOrtho(-1, 1, -1, 1, 1, -1);
 
     /**
     - 사각형 그려주는 함수 (왼 위x, 왼 위y, 오른 아래x, 오른 아래 y)
