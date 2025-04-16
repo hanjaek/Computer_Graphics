@@ -28,10 +28,10 @@ void RenderScene(void) {
 
         glBegin(GL_POINTS);
         for (float dot = -2.0f; dot <= 2.0f; dot += 0.1f) {
-            glVertex3f(x + dot, y + 2.0f, z);     // 상단: 왼쪽 → 오른쪽
-            glVertex3f(x + 2.0f, y - dot, z);     // 오른쪽: 위 → 아래
-            glVertex3f(x - 2.0f, y + dot, z);     // 왼쪽: 아래 → 위
-            glVertex3f(x - dot, y - 2.0f, z);     // 하단: 오른쪽 → 왼쪽
+            glVertex3f(x + dot, y + 2.0f, z);     // 상단: 왼쪽 -> 오른쪽
+            glVertex3f(x + 2.0f, y + dot, z);     // 오른쪽: 아래 -> 위
+            glVertex3f(x - 2.0f, y + dot, z);     // 왼쪽: 아래 -> 위
+            glVertex3f(x + dot, y - 2.0f, z);     // 하단: 왼쪽 -> 오른쪽
         }
         z += 0.5f;
 

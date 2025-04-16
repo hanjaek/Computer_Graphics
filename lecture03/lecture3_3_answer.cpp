@@ -25,7 +25,7 @@ void RenderScene(void)
     float GL_PI = 3.14159265359f;
 
     glBegin(GL_POINTS);
-        for(float angle = 0.0f; angle <= GL_PI*2.0f; angle+=0.005f)
+        for(float angle = 0.0f; angle <= GL_PI*2.0f; angle+=0.01f)
         {
             glVertex3f(cos(angle), sin(angle), 0); // 라디아
         }

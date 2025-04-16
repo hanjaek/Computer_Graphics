@@ -15,7 +15,10 @@ void RenderScene(void)
    glPushMatrix();
       glRotatef(45, 1.0f, 0.0f, 0.0f);
       glRotatef(45, 0.0f, 1.0f, 0.0f);
-   glPointSize(3);
+   glPointSize(10);
+   // pointSize 영향 x
+
+   glLineWidth(10);
    GLfloat sizes[2];
    GLfloat step;
    glBegin(GL_LINE_STRIP);
