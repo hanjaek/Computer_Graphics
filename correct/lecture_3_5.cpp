@@ -9,51 +9,31 @@ using namespace std;
 //장면 렌더링
 void RenderScene(void)
 {
-   std::cout << "RenderScene" << std::endl;
+    GLfloat y;
+    GLint factor = 1;
+    GLushort pattern = 0x00ff; // 0x5555 : 010101010101010'''' / 00ff : 00000000 11111111
 
-   glClear(GL_COLOR_BUFFER_BIT);
-   glColor3f(1.0f, 1.0f, 1.0f);
-   //glRectf(-25.0f, 25.0f, 25.0f, -25.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glPushMatrix();
 
-   GLfloat sizes[2];
-   GLfloat step;
+    glEnable(GL_LINE_STIPPLE);
+    for(y = -90.0f; y <= 90.0f; y += 20.0f){
+        glLineStipple(factor, pattern);
 
-   glGetFloatv(GL_LINE_WIDTH_RANGE,sizes);
-   glGetFloatv(GL_LINE_WIDTH_GRANULARITY, &step);
+        glBegin(GL_LINES);
+            glVertex2f(-80.0f, y);
+            glVertex2f(80.0f, y);
+            // glVertex2f(y, -80.0f);
+            // glVertex2f(y, 80.0f);
+        glEnd();
 
-   GLfloat space = 50.0f;
-   GLfloat x = 50.0f;
-   GLfloat y = 50.0f;
-   GLfloat size = sizes[0];
-   
-   // cout << sizes[0] << " " << sizes[1] << " " << step << endl;
-   // 0.0078125, 2046.99, step = 0.0078125
+        factor++; // 간격과 길이가 ++
+    }
 
-   for(int i=0; i < 9; i++){
+    glPopMatrix();
 
-      glLineWidth(size);
-      size += step*300;
-
-      glBegin(GL_LINES);
-
-      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
-      glVertex3f(x, 50.0f, 0);
-      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
-      glVertex3f(x, 450.0f, 0);
-      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
-      glVertex3f(50.0f, y, 0);
-      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
-      glVertex3f(450.0f, y, 0);
-
-      x += space;
-      y += space;
-
-      glEnd();
-
-   }
-   glPopMatrix();
-   //glFlush();
-   glutSwapBuffers();
+    glutSwapBuffers();
 }
 
 void SetupRC(void)
@@ -86,7 +66,7 @@ void ChangeSize(GLsizei w, GLsizei h)
    else
       glOrtho(-wSize * aspectRatio, wSize * aspectRatio, -wSize, wSize, 100, -100);
    **/
-   glOrtho(0, 500, 0, 500, 1, -1);
+   glOrtho(-100, 100, -100, 100, 1, -1);
 
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();

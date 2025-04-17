@@ -3,8 +3,6 @@
 #include <iostream>
 #include <math.h>
 
-using namespace std;
-
 #define GL_PI 3.1415f
 //장면 렌더링
 void RenderScene(void)
@@ -14,43 +12,51 @@ void RenderScene(void)
    glClear(GL_COLOR_BUFFER_BIT);
    glColor3f(1.0f, 1.0f, 1.0f);
    //glRectf(-25.0f, 25.0f, 25.0f, -25.0f);
+   glPushMatrix();
+      glRotatef(45, 1.0f, 0.0f, 0.0f);
+      glRotatef(45, 0.0f, 1.0f, 0.0f);
+   glPointSize(3);
 
-   GLfloat sizes[2];
-   GLfloat step;
 
-   glGetFloatv(GL_LINE_WIDTH_RANGE,sizes);
-   glGetFloatv(GL_LINE_WIDTH_GRANULARITY, &step);
+   GLfloat line = 100.0f;
+   GLfloat arrow = 5.0f;
 
-   GLfloat space = 50.0f;
-   GLfloat x = 50.0f;
-   GLfloat y = 50.0f;
-   GLfloat size = sizes[0];
-   
-   // cout << sizes[0] << " " << sizes[1] << " " << step << endl;
-   // 0.0078125, 2046.99, step = 0.0078125
+   glBegin(GL_LINE_STRIP); 
+   // x축 점 2개
+   glColor3f(1.0f, 0.0f, 0.0f);
+   glVertex3f(0.0f, 0.0f, 0.0f);
+   glVertex3f(line, 0.0f, 0.0f);
 
-   for(int i=0; i < 9; i++){
+   // x축 화살표 점 3개
+   glVertex3f(90.0f, 0.0f, -arrow);
+   glVertex3f(line, 0.0f, 0.0f);
+   glVertex3f(90.0f, 0.0f, arrow);
+   glEnd();
 
-      glLineWidth(size);
-      size += step*300;
+   glBegin(GL_LINE_STRIP);
+   // y축 점 2개
+   glColor3f(0.0f, 1.0f, 0.0f);
+   glVertex3f(0.0f, 0.0f, 0.0f);
+   glVertex3f(0.0f, line, 0.0f);
 
-      glBegin(GL_LINES);
+   // y축 화살표 점 3개
+   glVertex3f(-arrow, 90.0f, 0.0f);
+   glVertex3f(0.0f, line, 0.0f);
+   glVertex3f(arrow, 90.0f, 0.0f);
+   glEnd();
 
-      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
-      glVertex3f(x, 50.0f, 0);
-      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
-      glVertex3f(x, 450.0f, 0);
-      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
-      glVertex3f(50.0f, y, 0);
-      glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
-      glVertex3f(450.0f, y, 0);
+   glBegin(GL_LINE_STRIP);
+   // z축 점 2개
+   glColor3f(0.0f, 0.0f, 1.0f);
+   glVertex3f(0.0f, 0.0f, 0.0f);
+   glVertex3f(0.0f, 0.0f, line);
 
-      x += space;
-      y += space;
+   // z축화살표 점 3개
+   glVertex3f(-arrow, 0.0f, 90.0f);
+   glVertex3f(0.0f, 0.0f, line);
+   glVertex3f(arrow, 0.0f, 90.0f);
+   glEnd();
 
-      glEnd();
-
-   }
    glPopMatrix();
    //glFlush();
    glutSwapBuffers();
@@ -79,14 +85,12 @@ void ChangeSize(GLsizei w, GLsizei h)
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
 
-   /** 
    aspectRatio = (GLfloat)w / (GLfloat)h;
    if (w <= h)
       glOrtho(-wSize, wSize, -wSize / aspectRatio, wSize / aspectRatio, 100, -100);
    else
       glOrtho(-wSize * aspectRatio, wSize * aspectRatio, -wSize, wSize, 100, -100);
-   **/
-   glOrtho(0, 500, 0, 500, 1, -1);
+
 
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
@@ -98,7 +102,7 @@ int main(int argc, char** argv)
    //glutInitWindowSize(640, 480);
    glutInitWindowSize(500, 500);
    glutInitWindowPosition(400, 400);
-   glutCreateWindow("Line strip");
+   glutCreateWindow("simple");
 
    glutDisplayFunc(RenderScene);
    glutReshapeFunc(ChangeSize);
