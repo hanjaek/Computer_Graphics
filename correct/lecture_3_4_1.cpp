@@ -36,10 +36,13 @@ void RenderScene(void)
 
       glBegin(GL_LINES);
 
+      // 세로 줄
       glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
       glVertex3f(x, 50.0f, 0);
       glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
       glVertex3f(x, 450.0f, 0);
+
+      // 가로 줄
       glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
       glVertex3f(50.0f, y, 0);
       glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);

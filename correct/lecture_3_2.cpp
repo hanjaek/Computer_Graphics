@@ -33,22 +33,22 @@ void RenderScene(void)
       //std :: cout << x <<','<< y<<',' << z;
 
       z += 0.5f;
-      //glVertex3f(x, y, z);
+      glVertex3f(x, y, z);
       glColor3f((float)(rand()%10) / 10, (float)(rand()%10) / 10, (float)(rand()%10) / 10);
 
-      for (float v = 0.0f; v <= 4.0f; v += 0.1f){
-        glVertex3f(x-2.0f+v, y+2.0f, z);
-        glVertex3f(x+2.0f, y+2.0f-v, z);
-        glVertex3f(x-2.0f, y-2.0f+v, z);
-        glVertex3f(x+2.0f-v, y-2.0f, z);
-      }
+      // for (float v = 0.0f; v <= 4.0f; v += 0.1f){
+      //   glVertex3f(x-2.0f+v, y+2.0f, z);
+      //   glVertex3f(x+2.0f, y+2.0f-v, z);
+      //   glVertex3f(x-2.0f, y-2.0f+v, z);
+      //   glVertex3f(x+2.0f-v, y-2.0f, z);
+      // }
 
-    //   for (float v = -2.0f; v <= 2.0f; v += 0.1f){
-    //     glVertex3f();
-    //     glVertex3f();
-    //     glVertex3f();
-    //     glVertex3f();
-    //   }
+      for (float v = 0.0f; v <= 4.0f; v += 0.1f){
+         glVertex3f(50.0f*cos(x-2.0f+v), 50.0f*sin(y+2.0f), z);
+         glVertex3f(50.0f*cos(x+2.0f), 50.0f*sin(y+2.0f-v), z);
+         glVertex3f(50.0f*cos(x-2.0f), 50.0f*sin(y-2.0f+v), z);
+         glVertex3f(50.0f*cos(x+2.0f-v), 50.0f*sin(y-2.0f), z);
+       }
 
       glEnd();
    }

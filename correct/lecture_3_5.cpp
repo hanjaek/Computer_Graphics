@@ -11,7 +11,8 @@ void RenderScene(void)
 {
     GLfloat y;
     GLint factor = 1;
-    GLushort pattern = 0x00ff; // 0x5555 : 010101010101010'''' / 00ff : 00000000 11111111
+    GLushort pattern = 0x00ff; // 0x5555 : 0101 0101 0101 0101 / 00ff : 0000 0000 1111 1111
+                     // 그려질 때는 반대로 : ff00으로 그려짐 즉 1111 1111 0000 0000 < 그려지고 안그려지고,
 
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -22,10 +23,10 @@ void RenderScene(void)
         glLineStipple(factor, pattern);
 
         glBegin(GL_LINES);
-            glVertex2f(-80.0f, y);
-            glVertex2f(80.0f, y);
-            // glVertex2f(y, -80.0f);
-            // glVertex2f(y, 80.0f);
+            // glVertex2f(-80.0f, y);
+            // glVertex2f(80.0f, y);
+            glVertex2f(y, -80.0f);
+            glVertex2f(y, 80.0f);
         glEnd();
 
         factor++; // 간격과 길이가 ++

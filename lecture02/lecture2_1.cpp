@@ -11,6 +11,8 @@ void RenderScene(void){
 
     // 드로잉 색상 지정
     glColor3f(1.0f, 1.0f, 1.0f);
+
+    glMatrixMode(GL_PROJECTION);
     glOrtho(-1, 1, -1, 1, 1, -1);
 
     /**
