@@ -1,0 +1,163 @@
+#include <GL/glut.h>
+#include <iostream>
+#include <stdio.h>
+#include <cmath>
+
+// 어떤 원이 먼저 보일까(반지름은 같고 A=z(10), B=z(20)? 답은 B인데 이건 80점 짜리 정답.
+// 그럼 100점 자리 정답은? 
+// 반시계 방향으로 그려진 B -> 이유: 시계방향으로 그릴경우 아무 원도 보이지 않음.
+
+using namespace std;
+
+GLfloat xTran = 0.0f;
+GLfloat yTran = 0.0f;
+int xRot = 0;
+int yRot = 0;
+
+void keyboard(unsigned char key, int x, int y){
+
+    cout << "Keyboard" << "\n";
+
+    if(key=='a'){
+        xTran -= 2.0f;
+    }
+    else if(key =='d'){
+        xTran += 2.0f;
+    }
+    else if(key=='w'){
+        yTran += 2.0f;
+    }
+    else if(key =='s'){
+        yTran -= 2.0f;
+    }
+
+    glutPostRedisplay();
+}
+
+void SpecialKeys(int key, int x, int y){
+
+    cout << "Special Keys" << "\n";
+
+    if(key == GLUT_KEY_UP){
+        xRot -= 2.0f;
+    }
+    if(key == GLUT_KEY_DOWN){
+        xRot += 2.0f;
+    }
+    if(key == GLUT_KEY_LEFT){
+        yRot -= 2.0f;
+    }
+    if(key == GLUT_KEY_RIGHT){
+        yRot += 2.0f;
+    }
+
+    if(xRot > 360.0f){
+        xRot -= 360.0f;
+    }
+    if(xRot < 0.0f){
+        xRot += 360.0f;
+    }
+    if(yRot > 360.0f){
+        yRot -= 360.0f;
+    }
+    if(yRot < 0.0f){
+        yRot += 360.0f;
+    }
+
+    glutPostRedisplay();
+}
+
+void RenderScene(void)
+{
+    GLint factor = 1;
+    GLushort pattern = 0x3333;
+
+    std::cout << "RenderScene" << std::endl;
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glColor3f(0.0f, 0.0f, 0.0f);
+
+    glRotatef(30.0f, 1.0f, 0.0f, 0.0f);  //x축으로 30도 회전
+    glRotatef(-30.0f, 0.0f, 1.0f, 0.0f); //y축으로 -30도 회전
+    glTranslatef(0.0f, 0.0f, -30.0f); //뒤로 조금 이동
+
+    glBegin(GL_LINES);
+        glColor3f(1.0f, 0.0f, 0.0f);
+        glVertex3f(0.0f,0.0f,0.0f);
+        glVertex3f(80.0f,0.0f,0.0f);
+
+        glColor3f(0.0f, 1.0f, 0.0f);
+        glVertex3f(0.0f,0.0f,0.0f);
+        glVertex3f(0.0f,80.0f,0.0f);
+
+        glColor3f(0.0f, 0.0f, 1.0f);
+        glVertex3f(0.0f,0.0f,0.0f);
+        glVertex3f(0.0f,0.0f,80.0f);
+    glEnd();
+
+    glMatrixMode(GL_MODELVIEW);
+
+    glEnable(GL_LINE_STIPPLE);
+    glLineStipple(factor, pattern);
+    glColor3f(0.0f, 0.0f, 1.0f);
+    glutWireCube(20.0f);
+    glTranslated(0.0f, 30.0f, 0.0f);
+    glDisable(GL_LINE_STIPPLE);
+
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glutWireCube(20.0f);
+    glPopMatrix();
+
+   glutSwapBuffers();
+}
+    
+
+void SetupRC(void)
+{
+    glClearColor(0.0f,0.0f,0.0f,1.0f);
+    // glShadeModel(GL_FLAT); 
+}
+
+void ChangeSize(GLsizei w, GLsizei h){
+    cout << "ChangeSize" << "\n";
+
+    GLdouble nRange = 100.0f;
+    GLdouble aspectRatio;
+
+    if(h==0) h=1;
+
+    glViewport(0, 0, w, h);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    aspectRatio = (GLfloat)w / (GLfloat)h;
+    if(w <= h){
+        glOrtho(-nRange, nRange, -nRange / aspectRatio, nRange / aspectRatio, nRange, -nRange);
+    }
+    else{
+        glOrtho(-nRange * aspectRatio, nRange * aspectRatio, -nRange, nRange, nRange, -nRange);
+    }
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+}
+
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); // 디스플레이 모드 설정 | Single 버퍼, RGBA 색상 모드 사용
+    glutInitWindowSize(500, 500);
+    
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Draw WireCube and Translated");
+    
+    SetupRC();
+    glutDisplayFunc(RenderScene); // 화면을 그릴 때 RenderScene을 호출
+    glutReshapeFunc(ChangeSize);
+    glutKeyboardFunc(keyboard);
+    glutSpecialFunc(SpecialKeys);
+     
+    glutMainLoop(); // GLUT의 이벤트 루프 진입 | 윈도우 시스템이 키보드, 마우스, 그리기 이벤트 처리해줌
+}
