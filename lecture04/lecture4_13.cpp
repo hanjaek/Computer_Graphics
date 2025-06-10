@@ -3,10 +3,6 @@
 #include <stdio.h>
 #include <cmath>
 
-// 어떤 원이 먼저 보일까(반지름은 같고 A=z(10), B=z(20)? 답은 B인데 이건 80점 짜리 정답.
-// 그럼 100점 자리 정답은? 
-// 반시계 방향으로 그려진 B -> 이유: 시계방향으로 그릴경우 아무 원도 보이지 않음.
-
 using namespace std;
 
 GLfloat xTran = 0.0f;
@@ -69,8 +65,8 @@ void SpecialKeys(int key, int x, int y){
 
 void RenderScene(void)
 {
-    GLint factor = 1;
-    GLushort pattern = 0x3333;
+    GLint factor = 4;
+    GLushort pattern = 0x5555;
 
     std::cout << "RenderScene" << std::endl;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -95,7 +91,7 @@ void RenderScene(void)
         glVertex3f(0.0f,0.0f,80.0f);
     glEnd();
 
-    glMatrixMode(GL_MODELVIEW);
+    // glMatrixMode(GL_MODELVIEW);
 
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(factor, pattern);
