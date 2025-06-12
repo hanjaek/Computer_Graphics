@@ -5,6 +5,8 @@
 
 using namespace std;
 
+// key == ‘1’
+
 GLfloat xTran = 0.0f;
 GLfloat yTran = 0.0f;
 int xRot = 0;

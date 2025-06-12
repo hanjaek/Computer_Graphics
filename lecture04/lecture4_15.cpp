@@ -62,56 +62,42 @@ void SpecialKeys(int key, int x, int y){
 
     glutPostRedisplay();
 }
+int flag = 0;
 
 void RenderScene(void)
 {
-    GLint factor = 4;
-    GLushort pattern = 0x5555;
-
+    // GLint factor = 4;
+    // GLushort pattern = 0x5555;
     std::cout << "RenderScene" << std::endl;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glColor3f(0.0f, 0.0f, 0.0f);
-
-    glPushMatrix();
-    glRotatef(30.0f, 1.0f, 0.0f, 0.0f);  //x축으로 30도 회전
-    glRotatef(-30.0f, 0.0f, 1.0f, 0.0f); //y축으로 -30도 회전
-    glTranslatef(0.0f, 0.0f, -30.0f); //뒤로 조금 이동
-
-    glBegin(GL_LINES);
-        glColor3f(1.0f, 0.0f, 0.0f);
-        glVertex3f(0.0f,0.0f,0.0f);
-        glVertex3f(80.0f,0.0f,0.0f);
-
-        glColor3f(0.0f, 1.0f, 0.0f);
-        glVertex3f(0.0f,0.0f,0.0f);
-        glVertex3f(0.0f,80.0f,0.0f);
-
-        glColor3f(0.0f, 0.0f, 1.0f);
-        glVertex3f(0.0f,0.0f,0.0f);
-        glVertex3f(0.0f,0.0f,80.0f);
-    glEnd();
-
-    // glMatrixMode(GL_MODELVIEW);
-
-    glEnable(GL_LINE_STIPPLE);
-    glLineStipple(factor, pattern);
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glutWireCube(20.0f);
-    glTranslated(0.0f, 30.0f, 0.0f);
-    glDisable(GL_LINE_STIPPLE);
-
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glutWireCube(20.0f);
-    glPopMatrix();
-
-   glutSwapBuffers();
-}
+    if(flag == 0){
+        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        flag++;
+    }
+    else if(flag == 1){
+        glClearColor(0.0f, 1.0f, 0.0f,1.0f);
+        flag++;
+    }
+    else{
+        glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+        flag = 0;
+    }
     
+    glutSwapBuffers();
+}
+
+void TimerFunction(int value){
+    //glutDisplayFunc();
+    glutPostRedisplay();
+
+    //1초마다 다시 호출
+    glutTimerFunc(1000, TimerFunction, 1);
+}
 
 void SetupRC(void)
 {
-    glClearColor(0.0f,0.0f,0.0f,1.0f);
+    glClearColor(1.0f,0.0f,0.0f,1.0f);
     // glShadeModel(GL_FLAT); 
 }
 
@@ -148,13 +134,14 @@ int main(int argc, char** argv)
     glutInitWindowSize(500, 500);
     
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Draw WireCube and Translated");
+    glutCreateWindow("glutTimer : RGB");
     
     SetupRC();
     glutDisplayFunc(RenderScene); // 화면을 그릴 때 RenderScene을 호출
     glutReshapeFunc(ChangeSize);
     glutKeyboardFunc(keyboard);
     glutSpecialFunc(SpecialKeys);
+    glutTimerFunc(1000, TimerFunction, 1); // 처음 타이머 호출
      
     glutMainLoop(); // GLUT의 이벤트 루프 진입 | 윈도우 시스템이 키보드, 마우스, 그리기 이벤트 처리해줌
 }

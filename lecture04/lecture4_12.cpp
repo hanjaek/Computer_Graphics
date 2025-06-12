@@ -84,7 +84,7 @@ void RenderScene(void)
     // glTranslated(0.0f, yTran, 0.0f);
 
     gluLookAt(0.0, 0.0, 0.0, 
-        0.0, 0.0, -1.0, 
+        0.0, 0.0, 1.0, 
         0.0, 1.0, 0.0);
 
     float GL_PI = 3.14f;
@@ -118,7 +118,7 @@ void RenderScene(void)
         for(float angle = 0.0f; angle < GL_PI*2.0f; angle+=(GL_PI / 16.0f))
         {
             glColor3f(1.0f, 0.0f, 0.0f);
-            glVertex3f(20.0f * cos(angle), 20.0f * sin(angle), 20.0f); 
+            glVertex3f(20.0f * sin(angle), 20.0f * cos(angle), 20.0f); 
         }
     glEnd();
 
@@ -128,7 +128,7 @@ void RenderScene(void)
         for(float angle = 0.0f; angle < GL_PI*2.0f; angle+=(GL_PI / 16.0f))
         {
             glColor3f(0.0f, 0.0f, 1.0f);
-            glVertex3f(10.0f * cos(angle), 10.0f * sin(angle), 10.0f); 
+            glVertex3f(10.0f * sin(angle), 10.0f * cos(angle), 10.0f); 
         }
 
     glEnd(); 

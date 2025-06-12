@@ -65,19 +65,12 @@ void SpecialKeys(int key, int x, int y){
 
 void RenderScene(void)
 {
-    GLint factor = 4;
-    GLushort pattern = 0x5555;
-
+    // GLint factor = 4;
+    // GLushort pattern = 0x5555;
     std::cout << "RenderScene" << std::endl;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     glColor3f(0.0f, 0.0f, 0.0f);
-
     glPushMatrix();
-    glRotatef(30.0f, 1.0f, 0.0f, 0.0f);  //x축으로 30도 회전
-    glRotatef(-30.0f, 0.0f, 1.0f, 0.0f); //y축으로 -30도 회전
-    glTranslatef(0.0f, 0.0f, -30.0f); //뒤로 조금 이동
-
     glBegin(GL_LINES);
         glColor3f(1.0f, 0.0f, 0.0f);
         glVertex3f(0.0f,0.0f,0.0f);
@@ -92,20 +85,17 @@ void RenderScene(void)
         glVertex3f(0.0f,0.0f,80.0f);
     glEnd();
 
-    // glMatrixMode(GL_MODELVIEW);
+    glTranslatef(0.0f, 10.0f, 0.0f);
+    glutSolidSphere(2,30,30);
+    glPopMatrix(); // glPop으로도 가능함. glLoadIdentity안쓰고도 가능함
+    // glLoadIdentity(); // 위치 초기화임 : 굳이 y로 다시 -10 해줄 필요 없음.
 
-    glEnable(GL_LINE_STIPPLE);
-    glLineStipple(factor, pattern);
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glutWireCube(20.0f);
-    glTranslated(0.0f, 30.0f, 0.0f);
-    glDisable(GL_LINE_STIPPLE);
-
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glutWireCube(20.0f);
+    glPushMatrix();
+    glTranslatef(10.0f, 0.0f, 0.0f);
+    glutSolidSphere(2,30,30);
     glPopMatrix();
 
-   glutSwapBuffers();
+    glutSwapBuffers();
 }
     
 
@@ -148,7 +138,7 @@ int main(int argc, char** argv)
     glutInitWindowSize(500, 500);
     
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Draw WireCube and Translated");
+    glutCreateWindow("Draw SolidSphere and Translated");
     
     SetupRC();
     glutDisplayFunc(RenderScene); // 화면을 그릴 때 RenderScene을 호출
