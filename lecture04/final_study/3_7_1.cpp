@@ -54,6 +54,10 @@ void specialKey(int key, int x, int y){
     glutPostRedisplay();
 }
 
+bool bCull = true;
+GLfloat GL_PI = 3.14;
+bool flag = true;
+
 void RenderScene(void)
 {
     glMatrixMode(GL_PROJECTION);
@@ -73,9 +77,6 @@ void RenderScene(void)
         glTranslated(xTran, yTran, 0.0f);
 
     glColor3f(1.0f,0.0f,0.0f);
-    bool bCull = true;
-    GLfloat GL_PI = 3.14;
-    bool flag = true;
 
     if(bCull){
         glEnable(GL_CULL_FACE);
@@ -85,19 +86,36 @@ void RenderScene(void)
     }
 
     glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(0.0f,0.0f,0.0f);
+    glVertex3f(0.0f,0.0f,70.0f);
     glColor3f(1.0f, 0.0f,0.0f);
 
     for(GLfloat angle = 0.0f; angle < 2.0f*(GL_PI); angle += (GL_PI / 8.0f)){
         GLfloat x = 50.0f * cos(angle);
         GLfloat y = 50.0f * sin(angle);
         if(flag){
-            glColor3f(0.0f, 1.0f,0.0f);
+            glColor3f(1.0f, 0.0f,0.0f);
             flag = false;
         }
         else{
+            glColor3f(0.0f, 1.0f,0.0f);
+            flag = true;
+        }
+        glVertex3f(x, y, 0.0f);
+    }
+    glEnd();
+
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex3f(0.0f,0.0f,0.0f);
+    for(GLfloat angle = 0.0f; angle < 2.0f*(GL_PI); angle += (GL_PI / 8.0f)){
+        GLfloat x = 50.0f * sin(angle);
+        GLfloat y = 50.0f * cos(angle);
+        if(!flag){
             glColor3f(1.0f, 0.0f,0.0f);
             flag = true;
+        }
+        else{
+            glColor3f(0.0f, 1.0f,0.0f);
+            flag = false;
         }
         glVertex3f(x, y, 0.0f);
     }

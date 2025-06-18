@@ -1,12 +1,12 @@
 CC = g++
 CFLAGS = -I"./freeglut/include"
 LDFLAGS = -L"./freeglut/lib" -lfreeglut -lopengl32 -lglu32
-TARGET = 3_7_0_a
+TARGET = 4_4
 
 all: $(TARGET)
 
-$(TARGET): lecture04/final_study/3_7_0_a.cpp
-	$(CC) lecture04/final_study/3_7_0_a.cpp -o $(TARGET) $(CFLAGS) $(LDFLAGS)
+$(TARGET): lecture04/final_study/4_4.cpp
+	$(CC) lecture04/final_study/4_4.cpp -o $(TARGET) $(CFLAGS) $(LDFLAGS)
 
 clean:
 	del $(TARGET).exe
