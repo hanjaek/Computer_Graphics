@@ -21,6 +21,13 @@ void keyboard(unsigned char key, int x, int y){
         yTran += 2.0f;
     }
 
+    if(key == '1'){
+        glFrontFace(GL_CCW);
+    }
+    if(key == '2'){
+        glFrontFace(GL_CW);
+    }
+
     glutPostRedisplay();
 }
 
@@ -59,7 +66,7 @@ void RenderScene(void)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    glOrtho(-100,100,-100,100,100,-100);
+    glOrtho(-100,100,-100,100,-100,100);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

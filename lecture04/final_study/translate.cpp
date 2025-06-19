@@ -84,15 +84,23 @@ void RenderScene(void)
     glVertex3f(0,50,0);
     glEnd();
     
+    
     glColor3f(0.0f,0.0f,1.0f);
     glTranslated(0,10,0);
     glutSolidSphere(2,30,30);
+
+    glPushMatrix();
+    glTranslated(10,10,0);
+    glutSolidSphere(2,30,30);
+    glPopMatrix();
+
     // glLoadIdentity();
     glPopMatrix();
     glTranslated(10,0,0);
     glutSolidSphere(2,30,30);
 
-    glPopMatrix();
+    glTranslated(10,10,0);
+    glutSolidSphere(2,30,30);
 
     glutSwapBuffers();
 }
